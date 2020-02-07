@@ -23,7 +23,7 @@ exports.createPages = ({ graphql, actions }) => {
 		result.data.allNodeArticle.edges.forEach(({ node }) => {
 			createPage({
 				path: node.id,
-				component: path.resolve(`./src/templates/blog-post.js`),
+				component: path.resolve(`./src/templates/article.js`),
 				context: {
 					id: node.id,
 				},
