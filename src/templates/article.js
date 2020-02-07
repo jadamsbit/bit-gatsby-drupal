@@ -1,50 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import Img from 'gatsby-image'
 
-import Layout from '../compontents/layout';
-
-const Article = ({ data }) => {
-	const post = data.nodeArticle;
-
+export default ({ data }) => {
+	const post = data.nodeArticle
 	return (
 		<Layout>
-			<h1>{post.title}</h1>
-
-			<img 
-				src={data.nodeArticle.relationship.field_image.localFile.publicURL}
-				alt={data.nodeArticle.relationship.field_image.alt}
-			/>
-
-			<div
-				dangerouslySetInnerHtml={{_html: post.body.processed}}
-			/>
+			<div>
+				<h1>{ post.title }</h1>
+				<small><em>{ Date(post.created) }</em></small>
+				<div style={{ maxWidth: `900px`, marginBottom: `1.45rem`, width: `100%` }}>
+					<Img fluid={ post.relationships.field_image.localFile.childImageSharp.fluid } />
+				</div>
+				<div dangerouslySetInnerHTML={{ __html: post.body.value }}></div>
+			</div>
 		</Layout>
-	);
-};
-
-Article.propTypes = {
-	data: PropTypes.object.isRequired,
-};
+	)
+}
 
 export const query = graphql`
-	query($ArticleId: String!){
-		nodeArticle(id: { eq: $ArticleId }) {
-			id
-			title
-			body {
-				processed
-			}
-			field_image {
-				alt
-			}
-			relationships {
-				field_image {
-					localFile {
-						publicURL
-					}
-				}
-			}
-		}
-	}
+  query($id: String!) {
+    nodeArticle(id: { eq: $id }) {
+      title
+      body {
+        value
+      }
+      created
+      relationships {
+        field_image {
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 400, quality: 100) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `

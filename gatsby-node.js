@@ -4,33 +4,30 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const path = require('path');
+const path = require(`path`)
 
-exports.createPages = async ({ action, graphql }) => {
-	const { createPage } = actions;
-
-	const articles = await graphql(`
-		{
-			allNodeArticle{
-				nodes{
-					id
-					title
-					path{
-						alias
-					}
-				}
-			}
-		}
-	`);
-
-	articles.data.allNodeArticle.nodes.map(articleData =>
-		createPage({
-			path: articleData.path.alias,
-			component: path.resolve(`src/templates/article.js`),
-			context: {
-				ArticleId: articleData.id
-			},
+exports.createPages = ({ graphql, actions }) => {
+	const { createPage } = actions
+	return graphql(`
+    {
+     allNodeArticle {
+       edges {
+         node {
+           id
+         }
+       }
+     }
+    }
+  `
+	).then(result => {
+		result.data.allNodeArticle.edges.forEach(({ node }) => {
+			createPage({
+				path: node.id,
+				component: path.resolve(`./src/templates/blog-post.js`),
+				context: {
+					id: node.id,
+				},
+			})
 		})
-	);
-
-};
+	})
+}
