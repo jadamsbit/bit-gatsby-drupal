@@ -10,6 +10,7 @@ module.exports = {
       options: {
         baseUrl: `http://dev-bit-gatsby.pantheonsite.io/`,
         apiBase: `jsonapi`, // endpoint of Drupal server
+        secret: `aa0b1818-ff4f-4b60-9b4a-ef5acd7ef179`
       },
     },
     `gatsby-plugin-react-helmet`,
