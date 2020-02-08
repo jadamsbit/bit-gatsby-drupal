@@ -4,19 +4,19 @@ import Layout from "../components/layout"
 import Img from 'gatsby-image'
 
 export default ({ data }) => {
-	const post = data.nodeArticle
-	return (
-		<Layout>
-			<div>
-				<h1>{ post.title }</h1>
-				<small><em>{ Date(post.created) }</em></small>
-				<div style={{ maxWidth: `900px`, marginBottom: `1.45rem`, width: `100%` }}>
-					<Img fluid={ post.relationships.field_image.localFile.childImageSharp.fluid } />
-				</div>
-				<div dangerouslySetInnerHTML={{ __html: post.body.value }}></div>
-			</div>
-		</Layout>
-	)
+    const post = data.nodeArticle;
+    return (
+        <Layout>
+            <div>
+                <h1>{ post.title }</h1>
+                <small><em>{ Date(post.created) }</em></small>
+                <div style={{ maxWidth: `900px`, marginBottom: `1.45rem`, width: `100%` }}>
+                    <Img fluid={ post.relationships.field_image.localFile.childImageSharp.fluid } />
+                </div>
+                <div dangerouslySetInnerHTML={{ __html: post.body.value }}></div>
+            </div>
+        </Layout>
+    )
 }
 
 export const query = graphql`
@@ -40,4 +40,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

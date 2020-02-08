@@ -4,11 +4,11 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const path = require(`path`)
+const path = require(`path`);
 
 exports.createPages = ({ graphql, actions }) => {
-	const { createPage } = actions
-	return graphql(`
+    const { createPage } = actions;
+    return graphql(`
     {
      allNodeArticle {
        edges {
@@ -19,15 +19,15 @@ exports.createPages = ({ graphql, actions }) => {
      }
     }
   `
-	).then(result => {
-		result.data.allNodeArticle.edges.forEach(({ node }) => {
-			createPage({
-				path: node.id,
-				component: path.resolve(`./src/templates/article.js`),
-				context: {
-					id: node.id,
-				},
-			})
-		})
-	})
+    ).then(result => {
+        result.data.allNodeArticle.edges.forEach(({ node }) => {
+            createPage({
+                path: node.id,
+                component: path.resolve(`./src/templates/article.js`),
+                context: {
+                    id: node.id,
+                },
+            })
+        })
+    })
 }

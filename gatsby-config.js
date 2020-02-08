@@ -5,6 +5,13 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        baseUrl: `http://dev-bit-gatsby.pantheonsite.io/`,
+        apiBase: `jsonapi`, // endpoint of Drupal server
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -28,13 +35,7 @@ module.exports = {
       },
 
     },
-    {
-      resolve: 'gatsby-source-drupal',
-      options: {
-        baseUrl: 'http://dev-bit-gatsby.pantheonsite.io/',
-        apiBase: 'jsonapi', // endpoint of Drupal server
-      },
-    },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
